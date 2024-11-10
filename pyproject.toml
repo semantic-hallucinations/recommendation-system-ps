@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "recommendation-system-ps"
+version = "0.1.0"
+description = ""
+authors = ["Ehor Hleoza <gleoza04@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+py-sc-client = "^0.4.0"
+py-sc-kpm = "^0.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
