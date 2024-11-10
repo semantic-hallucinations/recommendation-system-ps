@@ -123,4 +123,4 @@ dmypy.json
 #KB files
 *.kb
 
-poetry.lock
+/poetry.lock
