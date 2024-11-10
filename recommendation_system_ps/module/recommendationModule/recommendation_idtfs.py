@@ -4,7 +4,7 @@ from sc_kpm.sc_keynodes import Idtf
 
 
 @dataclass(frozen=True)
-class CommonIdentifiers:
+class RecommendationIdentifiers:
     NREL_USER_IDTF: Idtf = "nrel_user_idtf"
     NREL_PLACE_IDTF: Idtf = "nrel_place_idtf"
     RECOMMENDATION_MODEL: Idtf = "recommendation_model"
