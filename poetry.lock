@@ -2,13 +2,13 @@
 
 [[package]]
 name = "py-sc-client"
-version = "0.4.0"
+version = "0.3.1"
 description = "The Python implementation of the client for communication with the sc-server"
 optional = false
-python-versions = "<4,>=3.8"
+python-versions = ">=3.8, <4"
 files = [
-    {file = "py_sc_client-0.4.0-py3-none-any.whl", hash = "sha256:31229583988e226df39aaab34d155eda33e10abdc99cbbe943a37695e60a0be6"},
-    {file = "py_sc_client-0.4.0.tar.gz", hash = "sha256:3ab2012252553d5233133f5976be59ab99abfe20b7a2b936bcf3b4808e9d128c"},
+    {file = "py-sc-client-0.3.1.tar.gz", hash = "sha256:5b8b25d3ac573a219d26c91573415d27f770c440baeb23e95024dabfb8469efe"},
+    {file = "py_sc_client-0.3.1-py3-none-any.whl", hash = "sha256:9af22cfb7b8bc37f9b35cd12171619ad2af115a623f56188b5a8e4341eeb1e3a"},
 ]
 
 [package.dependencies]
@@ -47,4 +47,4 @@ test = ["websockets"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "7b8ec5e33181b20dee67841d287914dff5ccef29b234c904ad3b24495b0be330"
+content-hash = "ef81bb76076c90dcfc1ecd77ab97850c40f306e169d58dfe255f78f9f4c3b614"
