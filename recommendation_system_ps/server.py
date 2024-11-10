@@ -1,5 +1,5 @@
 import argparse
-from .module import modules
+from module import modules
 from sc_kpm import ScServer
 import logging
 
