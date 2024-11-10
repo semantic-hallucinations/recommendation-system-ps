@@ -8,10 +8,12 @@ from sc_client.constants import sc_types
 from sc_kpm.sc_sets import ScSet, ScStructure, ScNumberedSet
 from sc_kpm.identifiers import CommonIdentifiers
 
+from ..recommendation_idtfs import RecommendationIdentifiers
+
 
 class ClassRecommendationAgent(ScAgentClassic):
     def __init__(self):
-        super().__init__("action_get_class_recommendation")
+        super().__init__(RecommendationIdentifiers.ACTION_GET_CLASS_RECOMMENDATION)
 
     def on_event(self, event_element: ScAddr, event_edge: ScAddr, action_element: ScAddr) -> ScResult:
         user = utils.get_element_by_role_relation(action_element, ScKeynodes.rrel_index(1))
@@ -35,7 +37,10 @@ class ClassRecommendationAgent(ScAgentClassic):
         results = template_search(sight_template)
         sights = ScSet(*(result.get("_sight") for result in results))
         
-        recommendation_action = utils.action_utils.create_action("action_get_recommendation", CommonIdentifiers.ACTION)
+        recommendation_action = utils.action_utils.create_action(
+            RecommendationIdentifiers.ACTION_GET_RECOMMENDATION,
+            CommonIdentifiers.ACTION
+        )
         recommendation_action = ScNumberedSet(user, sights.set_node, set_node=recommendation_action)
         
         if not utils.action_utils.execute_action(
