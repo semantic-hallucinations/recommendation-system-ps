@@ -1,5 +1,4 @@
 import argparse
-from module import modules
 from sc_kpm import ScServer
 import logging
 
@@ -22,6 +21,7 @@ def main(args: dict):
         f"{args[SC_SERVER_PROTOCOL]}://{args[SC_SERVER_HOST]}:{args[SC_SERVER_PORT]}")
 
     with server.connect():
+        from module import modules
         server.add_modules(*modules)
         with server.register_modules():
             server.serve()
