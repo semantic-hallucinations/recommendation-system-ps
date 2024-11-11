@@ -1,9 +1,10 @@
 from sc_kpm import sc_module
-from recommendation_system_ps.module.recommendationModule.agent.recommendation_agent import RecommendationAgent
-
+from .agent.recommendation_agent import RecommendationAgent
+from .agent.class_recommendation_agent import ClassRecommendationAgent
 
 class RecommendationModule(sc_module.ScModule):
     def __init__(self):
         super().__init__(
-            RecommendationAgent()
+            RecommendationAgent(),
+            ClassRecommendationAgent(),
         )
