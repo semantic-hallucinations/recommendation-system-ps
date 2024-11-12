@@ -1,11 +1,14 @@
 from sc_client.client import get_link_content
 from sc_client.models import ScAddr
+from sc_client.constants import sc_types
+
 from sc_kpm import ScAgentClassic, ScResult, utils, ScKeynodes
 from sc_kpm.sc_sets import ScSet, ScNumberedSet
 from sc_kpm.utils import action_utils
+
 from surprise import SVD, dump
 
-from recommendation_system_ps.module.recommendationModule.recommendation_idtfs import RecommendationIdentifiers
+from ..recommendation_idtfs import RecommendationIdentifiers
 
 TOP_N = 10
 
@@ -52,6 +55,11 @@ class RecommendationAgent(ScAgentClassic):
 
         top_recommendations = self._get_recommendations(user_id, list(unrated_places.keys()), self.__model, n=TOP_N)
 
-        action_utils.create_action_answer(action_element, *(unrated_places[rec.iid] for rec in top_recommendations))
+        action_utils.create_action_answer(
+            action_element,
+            ScNumberedSet(
+                *(unrated_places[rec.iid] for rec in top_recommendations),
+                set_node_type=sc_types.NODE_CONST_TUPLE).set_node,
+        )
         action_utils.finish_action_with_status(action_element)
         return ScResult.OK
