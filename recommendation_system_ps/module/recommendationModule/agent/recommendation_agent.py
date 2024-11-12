@@ -15,9 +15,6 @@ class RecommendationAgent(ScAgentClassic):
         super().__init__(RecommendationIdentifiers.ACTION_GET_RECOMMENDATION)
         self.__model = self._get_model()
 
-    def _get_arguments(self, action_element: ScAddr) -> ScNumberedSet:
-        return ScNumberedSet(set_node=action_element)
-
     def _get_username(self, user_node: ScAddr) -> str:
         user_name_addr = utils.get_element_by_norole_relation(user_node,
                                                               ScKeynodes.get(RecommendationIdentifiers.NREL_USER_IDTF))
@@ -49,9 +46,9 @@ class RecommendationAgent(ScAgentClassic):
         return recommendations[:n]
 
     def on_event(self, event_element: ScAddr, event_edge: ScAddr, action_element: ScAddr) -> ScResult:
-        arguments: ScNumberedSet = self._get_arguments(action_element)
-        user_id = self._get_username(arguments[0])
-        unrated_places = self._get_places_ids(ScSet(set_node=arguments[1]))
+        user, places_set = utils.action_utils.get_action_arguments(action_element, 2)
+        user_id = self._get_username(user)
+        unrated_places = self._get_places_ids(ScSet(set_node=places_set))
 
         top_recommendations = self._get_recommendations(user_id, list(unrated_places.keys()), self.__model, n=TOP_N)
 
