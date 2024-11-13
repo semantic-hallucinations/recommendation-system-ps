@@ -1,11 +1,14 @@
 from sc_client.client import get_link_content
 from sc_client.models import ScAddr
+from sc_client.constants import sc_types
+
 from sc_kpm import ScAgentClassic, ScResult, utils, ScKeynodes
 from sc_kpm.sc_sets import ScSet, ScNumberedSet
 from sc_kpm.utils import action_utils
+
 from surprise import SVD, dump
 
-from recommendation_system_ps.module.recommendationModule.recommendation_idtfs import RecommendationIdentifiers
+from ..recommendation_idtfs import RecommendationIdentifiers
 
 TOP_N = 10
 
@@ -14,9 +17,6 @@ class RecommendationAgent(ScAgentClassic):
     def __init__(self):
         super().__init__(RecommendationIdentifiers.ACTION_GET_RECOMMENDATION)
         self.__model = self._get_model()
-
-    def _get_arguments(self, action_element: ScAddr) -> ScNumberedSet:
-        return ScNumberedSet(set_node=action_element)
 
     def _get_username(self, user_node: ScAddr) -> str:
         user_name_addr = utils.get_element_by_norole_relation(user_node,
@@ -49,12 +49,17 @@ class RecommendationAgent(ScAgentClassic):
         return recommendations[:n]
 
     def on_event(self, event_element: ScAddr, event_edge: ScAddr, action_element: ScAddr) -> ScResult:
-        arguments: ScNumberedSet = self._get_arguments(action_element)
-        user_id = self._get_username(arguments[0])
-        unrated_places = self._get_places_ids(ScSet(set_node=arguments[1]))
+        user, places_set = utils.action_utils.get_action_arguments(action_element, 2)
+        user_id = self._get_username(user)
+        unrated_places = self._get_places_ids(ScSet(set_node=places_set))
 
         top_recommendations = self._get_recommendations(user_id, list(unrated_places.keys()), self.__model, n=TOP_N)
 
-        action_utils.create_action_answer(action_element, *(unrated_places[rec.iid] for rec in top_recommendations))
+        action_utils.create_action_answer(
+            action_element,
+            ScNumberedSet(
+                *(unrated_places[rec.iid] for rec in top_recommendations),
+                set_node_type=sc_types.NODE_CONST_TUPLE).set_node,
+        )
         action_utils.finish_action_with_status(action_element)
         return ScResult.OK
