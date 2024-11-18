@@ -21,43 +21,21 @@ class ClassicRecommendationAgent(ScAgentClassic):
             utils.action_utils.finish_action_with_status(action_element, False)
             return ScResult.ERROR_INVALID_PARAMS
 
-        recommendation_action = utils.action_utils.create_action(
-            RecommendationIdentifiers.ACTION_GET_RECOMMENDATION,
-            CommonIdentifiers.ACTION
+        recommendation_action_instance, success = utils.action_utils.execute_agent(
+            {
+                user: False
+            },
+            [
+                CommonIdentifiers.ACTION,
+                RecommendationIdentifiers.ACTION_GET_RECOMMENDATION
+            ]
         )
-        recommendation_action_construction = ScConstruction()
-        recommendation_action_construction.create_edge(
-            sc_types.EDGE_ACCESS_CONST_POS_PERM,
-            recommendation_action,
-            user,
-            "user_edge"
-        )
-        recommendation_action_construction.create_edge(
-            sc_types.EDGE_ACCESS_CONST_POS_PERM,
-            ScKeynodes.rrel_index(1),
-            "user_edge"
-        )
-        recommendation_action_construction.create_edge(
-            sc_types.EDGE_ACCESS_CONST_POS_PERM,
-            recommendation_action,
-            ScKeynodes[RecommendationIdentifiers.CONCEPT_PLACE],
-            "places_edge"
-        )
-        recommendation_action_construction.create_edge(
-            sc_types.EDGE_ACCESS_CONST_POS_PERM,
-            ScKeynodes.rrel_index(2),
-            "places_edge"
-        )
-        create_elements(recommendation_action_construction)
 
-        if not utils.action_utils.execute_action(
-                recommendation_action,
-                wait_time=60
-        ):
+        if not success:
             utils.action_utils.finish_action_with_status(action_element, False)
             return ScResult.NO
 
-        recommendation_action_answer = utils.action_utils.get_action_answer(recommendation_action)
+        recommendation_action_answer = utils.action_utils.get_action_answer(recommendation_action_instance)
         recommendation_action_answer = ScStructure(set_node=recommendation_action_answer)
 
         utils.action_utils.create_action_answer(action_element, *recommendation_action_answer)
