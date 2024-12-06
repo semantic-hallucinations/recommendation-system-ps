@@ -1,7 +1,6 @@
 from sc_client.client import get_link_content
 from sc_client.models import ScAddr
-from sc_client.constants import sc_types
-
+from sc_client.constants.sc_type import *
 from sc_kpm import ScAgentClassic, ScResult, utils, ScKeynodes
 from sc_kpm.sc_sets import ScSet, ScNumberedSet
 from sc_kpm.utils import action_utils
@@ -19,14 +18,14 @@ class RecommendationAgent(ScAgentClassic):
         self.__model = self._get_model()
 
     def _get_username(self, user_node: ScAddr) -> str:
-        user_name_addr = utils.get_element_by_norole_relation(user_node,
+        user_name_addr = utils.search_element_by_non_role_relation(user_node,
                                                               ScKeynodes.get(RecommendationIdentifiers.NREL_USER_IDTF))
         link_content = get_link_content(user_name_addr)[0].data
         return str(link_content)
 
     def _get_model(self) -> SVD:
         model_addr = ScKeynodes.get(RecommendationIdentifiers.RECOMMENDATION_MODEL)
-        model_link_addr = utils.get_element_by_norole_relation(
+        model_link_addr = utils.search_element_by_non_role_relation(
             model_addr,
             ScKeynodes.get(RecommendationIdentifiers.NREL_SERIALIZED)
         )
@@ -38,7 +37,7 @@ class RecommendationAgent(ScAgentClassic):
         result_dict = {}
         for place in places_set:
             place_name = get_link_content(utils
-                                          .get_element_by_norole_relation(place, ScKeynodes.get(
+                                          .search_element_by_non_role_relation(place, ScKeynodes.get(
                 RecommendationIdentifiers.NREL_PLACE_IDTF)))[0].data
             result_dict[place_name] = place
         return result_dict
@@ -59,7 +58,7 @@ class RecommendationAgent(ScAgentClassic):
             action_element,
             ScNumberedSet(
                 *(unrated_places[rec.iid] for rec in top_recommendations),
-                set_node_type=sc_types.NODE_CONST_TUPLE).set_node,
+                set_node_type=CONST_NODE_TUPLE).set_node,
         )
         action_utils.finish_action_with_status(action_element)
         return ScResult.OK
