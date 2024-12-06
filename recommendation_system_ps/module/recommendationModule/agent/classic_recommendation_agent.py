@@ -20,7 +20,8 @@ class ClassicRecommendationAgent(ScAgentClassic):
 
         recommendation_action_instance, success = utils.action_utils.execute_agent(
             {
-                user: False
+                user: False,
+                ScKeynodes[RecommendationIdentifiers.CONCEPT_PLACE]: False
             },
             [
                 CommonIdentifiers.ACTION,
