@@ -13,4 +13,5 @@ class RecommendationIdentifiers:
     ACTION_GET_CLASSIC_RECOMMENDATION: Idtf = "action_get_classic_recommendation"
     ACTION_GET_CLASS_RECOMMENDATION: Idtf = "action_get_class_recommendation"
     ACTION_GET_EXPERIMENTAL_RECOMMENDATION: Idtf = "action_get_experimental_recommendation"
+    CONCEPT_PLACE: Idtf = "concept_place"
     
