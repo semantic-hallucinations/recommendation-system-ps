@@ -1,12 +1,9 @@
-from sc_client.models import ScAddr
-from sc_kpm import ScResult, ScKeynodes
-from sc_kpm.sc_agent import ScAgentClassic
 import sc_kpm.utils as utils
-from sc_client.models import ScTemplate, ScConstruction
-from sc_client.client import template_search, create_elements
-from sc_client.constants import sc_types
-from sc_kpm.sc_sets import ScSet, ScStructure, ScNumberedSet
+from sc_client.models import ScAddr
+from sc_kpm import ScResult
 from sc_kpm.identifiers import CommonIdentifiers
+from sc_kpm.sc_agent import ScAgentClassic
+from sc_kpm.sc_sets import ScStructure
 
 from ..recommendation_idtfs import RecommendationIdentifiers
 
@@ -41,9 +38,9 @@ class ClassRecommendationAgent(ScAgentClassic):
             utils.action_utils.finish_action_with_status(action_element, False)
             return ScResult.NO
         
-        recommendation_action_answer = utils.action_utils.get_action_answer(recommendation_action_instance)
+        recommendation_action_answer = utils.action_utils.get_action_result(recommendation_action_instance)
         recommendation_action_answer = ScStructure(set_node=recommendation_action_answer)
         
-        utils.action_utils.create_action_answer(action_element, *recommendation_action_answer)
+        utils.action_utils.generate_action_result(action_element, *recommendation_action_answer)
         utils.action_utils.finish_action_with_status(action_element)
         return ScResult.OK

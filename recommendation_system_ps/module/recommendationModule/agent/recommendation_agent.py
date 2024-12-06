@@ -55,7 +55,7 @@ class RecommendationAgent(ScAgentClassic):
 
         top_recommendations = self._get_recommendations(user_id, list(unrated_places.keys()), self.__model, n=TOP_N)
 
-        action_utils.create_action_answer(
+        action_utils.generate_action_result(
             action_element,
             ScNumberedSet(
                 *(unrated_places[rec.iid] for rec in top_recommendations),
