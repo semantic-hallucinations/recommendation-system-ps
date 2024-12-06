@@ -2,9 +2,6 @@ from sc_client.models import ScAddr
 from sc_kpm import ScResult, ScKeynodes
 from sc_kpm.sc_agent import ScAgentClassic
 import sc_kpm.utils as utils
-from sc_client.models import ScTemplate, ScConstruction
-from sc_client.client import create_elements
-from sc_client.constants import sc_types
 from sc_kpm.sc_sets import ScStructure
 from sc_kpm.identifiers import CommonIdentifiers
 from ..recommendation_idtfs import RecommendationIdentifiers
