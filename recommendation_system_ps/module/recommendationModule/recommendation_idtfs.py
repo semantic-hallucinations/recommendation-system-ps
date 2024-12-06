@@ -5,10 +5,12 @@ from sc_kpm.sc_keynodes import Idtf
 
 @dataclass(frozen=True)
 class RecommendationIdentifiers:
+    NREL_ADDRESS: Idtf = "nrel_address"
     NREL_USER_IDTF: Idtf = "nrel_user_idtf"
     NREL_PLACE_IDTF: Idtf = "nrel_place_idtf"
     RECOMMENDATION_MODEL: Idtf = "recommendation_model"
     NREL_SERIALIZED: Idtf = "nrel_serialized"
+    ACTION_GENERATE_PNG_MAP: Idtf = "action_generate_png_map"
     ACTION_GET_RECOMMENDATION: Idtf = "action_get_recommendation"
     ACTION_GET_CLASSIC_RECOMMENDATION: Idtf = "action_get_classic_recommendation"
     ACTION_GET_CLASS_RECOMMENDATION: Idtf = "action_get_class_recommendation"
