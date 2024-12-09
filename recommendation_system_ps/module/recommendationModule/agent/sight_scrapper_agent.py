@@ -2,8 +2,7 @@ from sc_client.models import ScAddr
 from sc_kpm import ScResult, ScKeynodes
 from sc_kpm.sc_agent import ScAgentClassic
 import sc_kpm.utils as utils
-from sc_kpm.sc_sets import ScStructure, ScSet
-from sc_kpm.identifiers import CommonIdentifiers
+from sc_kpm.sc_sets import ScSet
 from sc_client.constants import sc_types
 from ..recommendation_idtfs import RecommendationIdentifiers
 
@@ -12,9 +11,9 @@ import sys
 import os
 
 
-class ClassicRecommendationAgent(ScAgentClassic):
+class SightScraperAgent(ScAgentClassic):
     def __init__(self):
-        super().__init__("action_scrap_sights")
+        super().__init__(RecommendationIdentifiers.ACTION_SCRAP_SIGHTS)
 
     def on_event(self, event_element: ScAddr, event_edge: ScAddr, action_element: ScAddr) -> ScResult:
         project_path = "sight_scrapper_env"
